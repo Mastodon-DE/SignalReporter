@@ -52,7 +52,7 @@ for report in reports:
     MELDER        = report["account"]["acct"]
     LINKZUMREPORT = f"{api_base_url_a}/admin/reports/{report['report']['id']}"
     print("\n")
-    print(f"Der {USER} wurde wegen {GRUND} am {str(DATUM)[:19]} von {MELDER} gemeldet {LINKZUMREPORT}")
+    print(f'Der {USER} wurde wegen angeblicher "{GRUND}" am {str(DATUM)[:19]} von {MELDER} gemeldet {LINKZUMREPORT}')
 
 E = "E"
 
