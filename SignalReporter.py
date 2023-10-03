@@ -1,17 +1,22 @@
 #!/bin/python
 import requests
 from mastodon import Mastodon
+import configparser
 
-HOST="http://10.100.100.211:8080"
-PHONENUMBER=""
-SIGNALGROUPID=""
+config = configparser.ConfigParser()
+config.read("config.ini") 
+
 NOTIFYTYPE="admin.report"
-# Falls moeglich, niemals credentials im Code unterbringen. Das geht schnell versehentlich ins github committet. Config-Datei oder Environment-Variable wäre gut
-#TODO: Create SECRETS.env
-#TODO: Revoke access token
+
+SIGNALHOST=config["Signal"]["SIGNALHOST"]
+PHONENUMBER=config["Signal"]["PHONENUMBER"]
+SIGNALGROUPID=config["Signal"]["SIGNALGROUPID"]
+
 #TODO: Create dedicated user on mastodon
-access_token_a='UtKw8-7G0mR6IAvHOEE9JRTJq1i5gC7mYPxrGJyqEsU'
-api_base_url_a='https://mastodon.de'
+#TODO: Create Oauth toke for dedcates user
+
+access_token_a=config["Mastodon"]["TOKEN"]
+api_base_url_a=config["Mastodon"]["API_URL"]
 
 def SendMessage(Message: str) -> None:
     headers = {
@@ -25,7 +30,7 @@ def SendMessage(Message: str) -> None:
             f'{SIGNALGROUPID}',
         ]
     }
-    response = requests.post(f"{HOST}/v2/send", headers=headers, json=json_data)
+    response = requests.post(f"{SIGNALHOST}/v2/send", headers=headers, json=json_data)
     print(response.content)
 
 mastodon = Mastodon(
@@ -35,7 +40,6 @@ mastodon = Mastodon(
 
 notifs = mastodon.notifications()
 reports = []
-
 
 for noty in notifs:
     if noty["type"] == NOTIFYTYPE:
