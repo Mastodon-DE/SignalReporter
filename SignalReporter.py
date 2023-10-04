@@ -11,7 +11,10 @@ NOTIFYTYPE="admin.report"
 
 SIGNALHOST=config["Signal"]["SIGNALHOST"]
 PHONENUMBER=config["Signal"]["PHONENUMBER"]
-SIGNALGROUPIDLIST=config["Signal"]["SIGNALGROUPID"]
+SIGNALRECIPIENTIDLIST=config["Signal"]["SIGNALGROUPID"]
+print(type(SIGNALRECIPIENTIDLIST))
+print(SIGNALRECIPIENTIDLIST)
+
 
 access_token_a=config["Mastodon"]["TOKEN"]
 api_base_url_a=config["Mastodon"]["API_URL"]
