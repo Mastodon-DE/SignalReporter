@@ -4,16 +4,13 @@ from mastodon import Mastodon
 import configparser
 
 config = configparser.ConfigParser()
-config.read("config.ini") 
+config.read("config.ini")
 
 NOTIFYTYPE="admin.report"
 
 SIGNALHOST=config["Signal"]["SIGNALHOST"]
 PHONENUMBER=config["Signal"]["PHONENUMBER"]
 SIGNALGROUPID=config["Signal"]["SIGNALGROUPID"]
-
-#TODO: Create dedicated user on mastodon
-#TODO: Create Oauth toke for dedcates user
 
 access_token_a=config["Mastodon"]["TOKEN"]
 api_base_url_a=config["Mastodon"]["API_URL"]
