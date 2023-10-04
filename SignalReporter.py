@@ -28,6 +28,7 @@ def SendMessage(Message: str) -> None:
         'number': f'{PHONENUMBER}',
         'recipients': SIGNALRECIPIENTIDLIST
     }
+    print(json_data)
     response = requests.post(f"{SIGNALHOST}/v2/send", headers=headers, json=json_data)
 ### ------------------------------------------------------------------------------- ###
 ### ------------------------------------------------------------------------------- ###
