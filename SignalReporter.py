@@ -1,6 +1,6 @@
 #!/bin/python
 import requests
-#from mastodon import Mastodon
+from mastodon import Mastodon
 ### ------------------------------------------------------------------------------- ###
 import configparser
 
@@ -11,30 +11,26 @@ NOTIFYTYPE="admin.report"
 
 SIGNALHOST=config["Signal"]["SIGNALHOST"]
 PHONENUMBER=config["Signal"]["PHONENUMBER"]
-SIGNALRECIPIENTIDLIST=config["Signal"]["SIGNALGROUPID"]
-print(type(SIGNALRECIPIENTIDLIST))
-print(SIGNALRECIPIENTIDLIST)
-
+SIGNALRECIPIENTIDLIST=config["Signal"]["SIGNALRECIPIENTIDLIST"]
+SIGNALRECIPIENTIDLIST = SIGNALRECIPIENTIDLIST.strip("[]").split(",")
 
 access_token_a=config["Mastodon"]["TOKEN"]
 api_base_url_a=config["Mastodon"]["API_URL"]
 ### ------------------------------------------------------------------------------- ###
-
-
 
 def SendMessage(Message: str) -> None:
     headers = {
         'accept': 'application/json',
         'Content-Type': 'application/json',
     }
+### ------------------------------------------------------------------------------- ###
     json_data = {
         'message': f'{Message}',
         'number': f'{PHONENUMBER}',
-        'recipients': [
-            f'{SIGNALGROUPID}',
-        ]
+        'recipients': SIGNALRECIPIENTIDLIST
     }
     response = requests.post(f"{SIGNALHOST}/v2/send", headers=headers, json=json_data)
+### ------------------------------------------------------------------------------- ###
 ### ------------------------------------------------------------------------------- ###
     if response.status_code != 201:
         print(f"\
