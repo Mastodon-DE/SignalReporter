@@ -28,7 +28,18 @@ def SendMessage(Message: str) -> None:
         ]
     }
     response = requests.post(f"{SIGNALHOST}/v2/send", headers=headers, json=json_data)
-    print(response.content)
+    print(f"\
+The API has returned an error.\n\
+The response code is: {response.status_code}\n\
+The message given is: {response.text}"
+    )
+    if response.status_code != 200:
+        print(f"\
+The API has returned an error.\n\
+The response code is: {response.status_code}\n\
+The message given is: {response.text}"
+        )
+        raise RuntimeError
 
 mastodon = Mastodon(
     access_token= access_token_a,
@@ -49,7 +60,9 @@ for report in reports:
     MELDER        = report["account"]["acct"]
     LINKZUMREPORT = f"{api_base_url_a}/admin/reports/{report['report']['id']}"
     print("\n")
-    print(f'Der {USER} wurde wegen angeblicher "{GRUND}" am {str(DATUM)[:19]} von {MELDER} gemeldet {LINKZUMREPORT}')
+    #print(f'Der {USER} wurde wegen angeblicher "{GRUND}" am {str(DATUM)[:19]} von {MELDER} gemeldet {LINKZUMREPORT}')
+    SendMessage(f'Der {USER} wurde wegen angeblicher "{GRUND}" am {str(DATUM)[:19]} von {MELDER} gemeldet {LINKZUMREPORT}')
+
 
 E = "E"
 
