@@ -28,12 +28,7 @@ def SendMessage(Message: str) -> None:
         ]
     }
     response = requests.post(f"{SIGNALHOST}/v2/send", headers=headers, json=json_data)
-    print(f"\
-The API has returned an error.\n\
-The response code is: {response.status_code}\n\
-The message given is: {response.text}"
-    )
-    if response.status_code != 200:
+    if response.status_code != 201:
         print(f"\
 The API has returned an error.\n\
 The response code is: {response.status_code}\n\
