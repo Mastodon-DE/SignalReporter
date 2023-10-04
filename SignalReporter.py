@@ -17,7 +17,6 @@ SIGNALRECIPIENTIDLIST = SIGNALRECIPIENTIDLIST.strip("[]").split(",")
 access_token_a=config["Mastodon"]["TOKEN"]
 api_base_url_a=config["Mastodon"]["API_URL"]
 ### ------------------------------------------------------------------------------- ###
-
 def SendMessage(Message: str) -> None:
     headers = {
         'accept': 'application/json',
@@ -40,7 +39,6 @@ The message given is: {response.text}"
         )
         raise RuntimeError
 ### ------------------------------------------------------------------------------- ###
-
 mastodon = Mastodon(
     access_token= access_token_a,
     api_base_url= api_base_url_a
@@ -65,11 +63,7 @@ for report in reports:
     SendMessage(f'Der {USER} wurde wegen angeblicher "{GRUND}" am {str(DATUM)[:19]} von {MELDER} gemeldet {LINKZUMREPORT}')
 ### ------------------------------------------------------------------------------- ###
 
-
 E = "E"
-
-#print(reports)
-
 
 #Obst=[{"name": "Bananen", "preis": 1.50}, {"name": "Apfel", "preis": 23.60}, {"name": "Pfirsich", "preis": 2}]
 #
