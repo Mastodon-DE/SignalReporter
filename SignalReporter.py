@@ -23,13 +23,14 @@ def SendMessage(Message: str) -> None:
         'Content-Type': 'application/json',
     }
 ### ------------------------------------------------------------------------------- ###
-    json_data = {
-        'message': f'{Message}',
-        'number': f'{PHONENUMBER}',
-        'recipients': SIGNALRECIPIENTIDLIST
-    }
-    print(json_data)
-    response = requests.post(f"{SIGNALHOST}/v2/send", headers=headers, json=json_data)
+    for contact in SIGNALRECIPIENTIDLIST:
+        json_data = {
+            'message': f'{Message}',
+            'number': f'{PHONENUMBER}',
+            'recipients': [f"{contact}",]
+        }
+        print(json_data)
+        response = requests.post(f"{SIGNALHOST}/v2/send", headers=headers, json=json_data)
 ### ------------------------------------------------------------------------------- ###
 ### ------------------------------------------------------------------------------- ###
     if response.status_code != 201:
